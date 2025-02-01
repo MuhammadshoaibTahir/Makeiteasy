@@ -1,0 +1,22 @@
+import pandas as pd
+
+# Load the Excel file
+file_path = "input file location" 
+data = pd.read_excel(file_path, header=None)
+
+# Convert to the desired format
+result = {}
+for i, row in data.iterrows():
+    root_word = row[0]
+    inflections = row[1:]
+    for inflection in inflections:
+        if pd.notna(inflection):  # Ensure the cell isn't empty
+            result[inflection] = root_word
+
+# Print the result
+print(result)
+
+# Optionally, save the result to a JSON file
+import json
+with open("output file location", "w", encoding="utf-8") as json_file:
+    json.dump(result, json_file, ensure_ascii=False, indent=4)
